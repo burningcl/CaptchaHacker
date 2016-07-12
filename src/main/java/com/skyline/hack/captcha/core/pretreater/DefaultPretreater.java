@@ -15,9 +15,9 @@ import com.skyline.hack.captcha.util.ImageUtils;
 import com.skyline.hack.captcha.util.Utils;
 
 /**
- * Ä¬ÈÏµÄÔ¤´¦ÀíÆ÷
+ * é»˜è®¤çš„é¢„å¤„ç†å™¨
  * 
- * ¸ÃÔ¤ÀÀ´¦ÀíÆ÷£¬½øĞĞÁË¶şÖµ»¯´¦Àí
+ * è¯¥é¢„è§ˆå¤„ç†å™¨ï¼Œè¿›è¡Œäº†äºŒå€¼åŒ–å¤„ç†
  * 
  * @author jairus
  *
@@ -30,11 +30,11 @@ public class DefaultPretreater implements Pretreater {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultPretreater.class);
 
 	/**
-	 * ÊÇ·ñÔÚÅú´¦ÀíÊ±Å×³öÒì³£
+	 * æ˜¯å¦åœ¨æ‰¹å¤„ç†æ—¶æŠ›å‡ºå¼‚å¸¸
 	 * 
-	 * Èç¹ûÎªtrue£¬ÔòÔÚÅú´¦ÀíÊ±Å×³öÒì³££¬ ÖĞ¶ÏÅú´¦Àí£»
+	 * å¦‚æœä¸ºtrueï¼Œåˆ™åœ¨æ‰¹å¤„ç†æ—¶æŠ›å‡ºå¼‚å¸¸ï¼Œ ä¸­æ–­æ‰¹å¤„ç†ï¼›
 	 * 
-	 * Èç¹ûÎªfalse£¬ÔòÔÚÅú´¦ÀíÊ±ÍÌÃ»Òì³££¬¼ÌĞøÅú´¦Àí£»
+	 * å¦‚æœä¸ºfalseï¼Œåˆ™åœ¨æ‰¹å¤„ç†æ—¶åæ²¡å¼‚å¸¸ï¼Œç»§ç»­æ‰¹å¤„ç†ï¼›
 	 */
 	private boolean throwBashException = true;
 

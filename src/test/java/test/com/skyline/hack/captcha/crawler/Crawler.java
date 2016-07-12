@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import test.com.skyline.hack.captcha.BaseUnitTest;
 
 /**
- * ÕâÊÇÒ»¸öÓÃÓÚ×¥È¡ÑéÖ¤ÂëÍ¼Æ¬µÄÅÀ³æ
+ * è¿™æ˜¯ä¸€ä¸ªç”¨äºæŠ“å–éªŒè¯ç å›¾ç‰‡çš„çˆ¬è™«
  * 
  * @author jairus
  *
