@@ -152,7 +152,7 @@ public class FloodingSpliter implements Spliter {
 			FloodingAttCharSpliter attCharSpliter = new FloodingAttCharSpliter();
 			destInfos = attCharSpliter.split(destInfos, avgPixels, cNum);
 		}
-		return merge(destInfos);
+		return convert(destInfos);
 	}
 
 	int avgPixels;
@@ -172,19 +172,6 @@ public class FloodingSpliter implements Spliter {
 			dsis.add(si);
 		}
 		return dsis;
-	}
-
-	private List<BufferedImage> merge(List<SplitInfo> sis) throws Exception {
-		// if (sis.size() < cNum) {
-		// throw new SplitFailException("split, size: " + sis.size() + " < cNum:
-		// " + cNum);
-		// }
-		// if (sis.size() == cNum) {
-		// return convert(sis);
-		// }
-		// FloodingMerger merge = new FloodingMerger();
-		// sis = merge.merge(sis, cNum);
-		return convert(sis);
 	}
 
 	private Comparator<SplitInfo> cmpByIndex = new Comparator<SplitInfo>() {
