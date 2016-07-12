@@ -35,12 +35,12 @@ public class SvmResPreparerTest extends BaseUnitTest {
 	@Test
 	public void test() throws Exception {
 		LOG.debug("test");
-		File trainSrcDir = new File(baseDir, "src/svm/train");
-		File trainDestFile = new File(baseDir, "dest/train/svm/svm_train.src");
+		File trainSrcDir = new File(baseDir, "src/recognizer/train");
+		File trainDestFile = new File(baseDir, "dest/train/recognizer/svm_train.src");
 		preparer.prepareTrain(trainSrcDir.getAbsolutePath(), trainDestFile.getAbsolutePath());
 		
-		File testSrcDir = new File(baseDir, "src/svm/test");
-		File testDestFile = new File(baseDir, "dest/train/svm/svm_test.src");
+		File testSrcDir = new File(baseDir, "src/recognizer/test");
+		File testDestFile = new File(baseDir, "dest/train/recognizer/svm_test.src");
 		preparer.prepareTest(testSrcDir.getAbsolutePath(), testDestFile.getAbsolutePath());
 		LOG.debug("test, success");
 	}

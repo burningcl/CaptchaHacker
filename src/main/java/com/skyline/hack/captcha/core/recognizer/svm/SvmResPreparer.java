@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
 
+import com.skyline.hack.captcha.core.exception.RecognizationException;
+
 /**
  * SVM 训练素材准备
  * 
@@ -20,7 +22,7 @@ public interface SvmResPreparer {
 	 * @param destFile
 	 *            训练文件所生成的文件
 	 */
-	public void prepareTrain(String srcDir, String destFile) throws IOException;
+	public void prepareTrain(String srcDir, String destFile) throws IOException, RecognizationException;
 
 	/**
 	 * 准备训练素材
@@ -31,7 +33,8 @@ public interface SvmResPreparer {
 	 *            训练文件所生成的文件
 	 * @param ioFileFilter
 	 */
-	public void prepareTrain(String srcDir, String destFile, IOFileFilter ioFileFilter) throws IOException;
+	public void prepareTrain(String srcDir, String destFile, IOFileFilter ioFileFilter)
+			throws IOException, RecognizationException;
 
 	/**
 	 * 准备测试素材
@@ -41,7 +44,7 @@ public interface SvmResPreparer {
 	 * @param destFile
 	 *            测试素材所生成的文件
 	 */
-	public void prepareTest(String srcDir, String destFile) throws IOException;
+	public void prepareTest(String srcDir, String destFile) throws IOException, RecognizationException;
 
 	/**
 	 * 准备训练素材
@@ -52,6 +55,7 @@ public interface SvmResPreparer {
 	 *            测试素材所生成的文件
 	 * @param ioFileFilter
 	 */
-	public void prepareTest(String srcDir, String destFile, IOFileFilter ioFileFilter) throws IOException;
+	public void prepareTest(String srcDir, String destFile, IOFileFilter ioFileFilter)
+			throws IOException, RecognizationException;
 
 }

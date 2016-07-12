@@ -42,16 +42,16 @@ public class SvmRecognizerTest extends BaseUnitTest {
 	public void test() throws Exception {
 		LOG.debug("test");
 		long t1 = System.currentTimeMillis();
-		File trainSrcDir = new File(baseDir, "src/svm/train");
-		File trainDestFile = new File(baseDir, "dest/train/svm/svm_train.src");
-		File trainModelFile = new File(baseDir, "dest/train/svm/svm_train.model");
+		File trainSrcDir = new File(baseDir, "src/recognizer/train");
+		File trainDestFile = new File(baseDir, "dest/train/recognizer/svm_train.src");
+		File trainModelFile = new File(baseDir, "dest/train/recognizer/svm_train.model");
 		recgonizer.train(trainSrcDir.getAbsolutePath(), trainDestFile.getAbsolutePath(),
 				trainModelFile.getAbsolutePath());
 
 		// recgonizer.loadModel(trainModelFile.getAbsolutePath());
 
-		File testSrcDir = new File(baseDir, "src/svm/test");
-		File testDestFile = new File(baseDir, "dest/train/svm/svm_test.src");
+		File testSrcDir = new File(baseDir, "src/recognizer/test");
+		File testDestFile = new File(baseDir, "dest/train/recognizer/svm_test.src");
 		recgonizer.recognize(testSrcDir.getAbsolutePath(), testDestFile.getAbsolutePath(), null);
 		long t2 = System.currentTimeMillis();
 		LOG.debug("test, success,  cost: " + (t2 - t1));

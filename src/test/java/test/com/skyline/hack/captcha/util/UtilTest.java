@@ -22,6 +22,6 @@ public class UtilTest extends BaseUnitTest {
 
 	@Test
 	public void testDistance() throws Exception {
-		System.out.println(Utils.distance(-1, -1, 1, 1));;
+		Utils.distance(-1, -1, 1, 1);
 	}
 }

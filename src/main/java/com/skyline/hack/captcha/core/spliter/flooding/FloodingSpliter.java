@@ -95,9 +95,7 @@ public class FloodingSpliter implements Spliter {
 			if (destSubDir.exists()) {
 				FileUtils.cleanDirectory(destSubDir);
 			} else {
-				if (!destSubDir.getParentFile().exists())
-					destSubDir.mkdirs();
-				destSubDir.mkdir();
+				destSubDir.mkdirs();
 			}
 			try {
 				BufferedImage srcImg = ImageIO.read(file);

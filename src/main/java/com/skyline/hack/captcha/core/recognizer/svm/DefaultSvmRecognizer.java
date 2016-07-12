@@ -60,6 +60,7 @@ public class DefaultSvmRecognizer implements SvmRecognizer {
 		if (!StringUtils.isBlank(checkMsg)) {
 			LOG.warn("train, checkMsg: " + checkMsg);
 		}
+		do_cross_validation(problem, param);
 		model = svm.svm_train(problem, param);
 		svm.svm_save_model(modelFile, model);
 	}
@@ -76,13 +77,45 @@ public class DefaultSvmRecognizer implements SvmRecognizer {
 		return Integer.parseInt(s);
 	}
 
+	private void do_cross_validation(svm_problem prob, svm_parameter param) {
+		int i;
+		int total_correct = 0;
+		double total_error = 0;
+		double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
+		double[] target = new double[prob.l];
+
+		svm.svm_cross_validation(prob, param, 5, target);
+		if (param.svm_type == svm_parameter.EPSILON_SVR || param.svm_type == svm_parameter.NU_SVR) {
+			for (i = 0; i < prob.l; i++) {
+				double y = prob.y[i];
+				double v = target[i];
+				total_error += (v - y) * (v - y);
+				sumv += v;
+				sumy += y;
+				sumvv += v * v;
+				sumyy += y * y;
+				sumvy += v * y;
+			}
+			System.out.print("Cross Validation Mean squared error = " + total_error / prob.l + "\n");
+			System.out.print("Cross Validation Squared correlation coefficient = "
+					+ ((prob.l * sumvy - sumv * sumy) * (prob.l * sumvy - sumv * sumy))
+							/ ((prob.l * sumvv - sumv * sumv) * (prob.l * sumyy - sumy * sumy))
+					+ "\n");
+		} else {
+			for (i = 0; i < prob.l; i++)
+				if (target[i] == prob.y[i])
+					++total_correct;
+			System.out.print("Cross Validation Accuracy = " + 100.0 * total_correct / prob.l + "%\n");
+		}
+	}
+
 	private svm_parameter initSvmParam() {
 		svm_parameter param = new svm_parameter();
 		// default values
 		param.svm_type = svm_parameter.NU_SVC;
 		param.kernel_type = svm_parameter.RBF;
 		param.degree = 3;
-		param.gamma = 0;	// 1/num_features
+		param.gamma = 0; // 1/num_features
 		param.coef0 = 0;
 		param.nu = 0.5;
 		param.cache_size = 100;
@@ -120,9 +153,9 @@ public class DefaultSvmRecognizer implements SvmRecognizer {
 					x[j] = new svm_node();
 					x[j].index = atoi(st.nextToken());
 					x[j].value = atof(st.nextToken());
-					//System.out.print(x[j].index+":"+x[j].value+" ");
+					// System.out.print(x[j].index+":"+x[j].value+" ");
 				}
-				//System.out.println();
+				// System.out.println();
 				if (m > 0)
 					max_index = Math.max(max_index, x[m - 1].index);
 				vx.addElement(x);

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.skyline.hack.captcha.core.Constants;
+import com.skyline.hack.captcha.core.exception.RecognizationException;
 import com.skyline.hack.captcha.util.Utils;
 
 /**
@@ -27,28 +28,28 @@ public class DefaultSvmResPreparer implements SvmResPreparer {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSvmResPreparer.class);
 
 	@Override
-	public void prepareTrain(String srcDirStr, String destFileStr) throws IOException {
+	public void prepareTrain(String srcDirStr, String destFileStr) throws IOException, RecognizationException {
 		this.prepareTrain(srcDirStr, destFileStr, null);
 	}
 
 	@Override
-	public void prepareTrain(String srcDirStr, String destFileStr, IOFileFilter ioFileFilter) throws IOException {
+	public void prepareTrain(String srcDirStr, String destFileStr, IOFileFilter ioFileFilter)
+			throws IOException, RecognizationException {
 		Utils.checkArgNullable("srcDir", false, srcDirStr);
 		Utils.checkArgNullable("destDir", false, destFileStr);
 		File srcDir = new File(srcDirStr);
 		if (!srcDir.exists()) {
-			LOG.error("prepareTrain, srcDir: " + srcDir + ", not exist!");
-			return;
+			throw new RecognizationException("prepareTrain, srcDir: " + srcDir + ", not exist!");
 		}
 		if (srcDir.isFile()) {
-			LOG.error("prepareTrain, srcDir: " + srcDir + ", it is not a directory, it is a file!");
-			return;
+			throw new RecognizationException(
+					"prepareTrain, srcDir: " + srcDir + ", it is not a directory, it is a file!");
 		}
 		File[] srcSubDirs = srcDir.listFiles();
 		File destFile = new File(destFileStr);
 		if (!destFile.exists()) {
 			if (!destFile.getParentFile().exists()) {
-				destFile.mkdirs();
+				destFile.getParentFile().mkdirs();
 			}
 		} else {
 			destFile.delete();
@@ -62,8 +63,8 @@ public class DefaultSvmResPreparer implements SvmResPreparer {
 				String dirName = srcSubDir.getName().trim();
 				Character c = Utils.string2Char(dirName);
 				if (c == null) {
-					LOG.warn("prepareTrain, fail, can not convert dirName, dirName: " + dirName);
-					break;
+					throw new RecognizationException(
+							"prepareTrain, fail, can not convert dirName, dirName: " + dirName);
 				}
 				while (imgFiles.hasNext()) {
 					write(c, imgFiles.next(), destWriter);
@@ -78,27 +79,27 @@ public class DefaultSvmResPreparer implements SvmResPreparer {
 	}
 
 	@Override
-	public void prepareTest(String srcDir, String destFile) throws IOException {
+	public void prepareTest(String srcDir, String destFile) throws IOException, RecognizationException {
 		this.prepareTest(srcDir, destFile, null);
 	}
 
 	@Override
-	public void prepareTest(String srcDirStr, String destFileStr, IOFileFilter ioFileFilter) throws IOException {
+	public void prepareTest(String srcDirStr, String destFileStr, IOFileFilter ioFileFilter)
+			throws IOException, RecognizationException {
 		Utils.checkArgNullable("srcDir", false, srcDirStr);
 		Utils.checkArgNullable("destDir", false, destFileStr);
 		File srcDir = new File(srcDirStr);
 		if (!srcDir.exists()) {
-			LOG.error("prepareTest, srcDir: " + srcDir + ", not exist!");
-			return;
+			throw new RecognizationException("prepareTest, srcDir: " + srcDir + ", not exist!");
 		}
 		if (srcDir.isFile()) {
-			LOG.error("prepareTest, srcDir: " + srcDir + ", it is not a directory, it is a file!");
-			return;
+			throw new RecognizationException(
+					"prepareTest, srcDir: " + srcDir + ", it is not a directory, it is a file!");
 		}
 		File destFile = new File(destFileStr);
 		if (!destFile.exists()) {
 			if (!destFile.getParentFile().exists()) {
-				destFile.mkdirs();
+				destFile.getParentFile().mkdirs();
 			}
 		} else {
 			destFile.delete();

@@ -80,7 +80,7 @@ public class Crawler extends BaseUnitTest {
 			file.delete();
 		}
 		if (!file.getParentFile().exists()) {
-			file.mkdirs();
+			file.getParentFile().mkdirs();
 		}
 		try {
 			connection = (HttpURLConnection) url.openConnection();

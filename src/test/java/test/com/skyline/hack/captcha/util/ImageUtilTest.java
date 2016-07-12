@@ -2,6 +2,7 @@ package test.com.skyline.hack.captcha.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.skyline.hack.captcha.util.ImageUtils;
+import com.skyline.hack.captcha.util.Utils;
 
 import test.com.skyline.hack.captcha.BaseUnitTest;
 
@@ -30,8 +32,9 @@ public class ImageUtilTest extends BaseUnitTest {
 		LOG.debug("test");
 		File srcDir = new File(baseDir, "src/train");
 		File destDir = new File(baseDir, "dest/util/image_util_test");
-		File[] files = srcDir.listFiles();
-		for (File file : files) {
+		Iterator<File> files = Utils.listFiles(srcDir, null);
+		while (files.hasNext()) {
+			File file = files.next();
 			LOG.debug("resize, file: " + file.getAbsolutePath());
 			BufferedImage srcImg = ImageIO.read(file);
 			BufferedImage destImg = ImageUtils.resize(64, 64, srcImg);
@@ -40,7 +43,7 @@ public class ImageUtilTest extends BaseUnitTest {
 				destFile.deleteOnExit();
 			}
 			if (!destDir.exists()) {
-				destFile.mkdirs();
+				destDir.mkdirs();
 			}
 			LOG.debug("resize, destImg: " + destImg);
 			ImageIO.write(destImg, "png", destFile);

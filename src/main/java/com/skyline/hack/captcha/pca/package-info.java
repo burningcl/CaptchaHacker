@@ -1,5 +1,5 @@
 /**
- * 
+ * PCA主成分分析包
  */
 /**
  * @author jairus
